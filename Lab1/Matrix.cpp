@@ -126,6 +126,17 @@ void Matrix::setToZero()
 	}
 }
 
+void Matrix::MakeIndentityMatrix()
+{
+	assert(_rows_count == _columns_count);
+
+	for (size_t i = 0; i < _rows_count; i++) {
+		for (size_t j = 0; j < _columns_count; j++)
+			_matrix[i][j] = 0;
+		_matrix[i][i] = 1;
+	}
+}
+
 std::ostream& operator<<(std::ostream& os, const Matrix& matr)
 {
 	for (int i = 0; i < matr._rows_count; i++)

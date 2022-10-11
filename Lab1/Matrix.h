@@ -75,6 +75,8 @@ public:
 
 	void SetRandom(int scatter = 10);
 	void setToZero();
+	void MakeIndentityMatrix();
+	
 
 private:
 	Row* _matrix;
