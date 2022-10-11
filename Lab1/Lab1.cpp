@@ -4,18 +4,24 @@
 
 int main()
 {
-    //Matrix matrix(10, 10);
-    //Matrix m1(matrix), m2 = matrix;
+    Row row1(2), row2(2), row3;
+    row1[0] = 12; row1[1] = 10;
+    row2[0] = 22; row2[1] = 20;
 
-    //matrix[0][0] = 13;
-    //m1[0][0] = 12;
-    //m2[0][0] = 10;
+    row3 = row1 + row2;
 
-    //std::cout << matrix[0][0] << " " << m1[0][0] << " " << m2[0][0] << std::endl;
+    std::cout << row3[0] << ' ' << row3[1] << '\n';
 
-    //const Matrix m3(matrix);
+    Matrix m(2, 2); m[0][0] = 5; m[1][1] = 442;
 
-    //std::cout << m3[0][0];
+    std::cout << m;
 
+    Matrix k(m);
+    Matrix g = m;
+
+   //while(1)
+   //    Matrix d(m);
+
+    std::cout << k << g;
 }
 
