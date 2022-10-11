@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-constexpr double kPrecision = 0.00001;
+constexpr double eps = 0.00001;
 
 
 // Клас рядка матриці. 
@@ -25,7 +25,7 @@ public:
 
 	// Оператор присвоєння
 	Row& operator=(const Row&);
-	
+	// Оператори для роботи з рядками
 	Row operator+(const Row&) const;
 	Row operator-(const Row&) const;
 	Row operator*(double) const;
@@ -54,8 +54,10 @@ class Matrix
 {
 public:
 	Matrix();
-	Matrix(size_t rows_count, size_t columns_count);
+	// Виділяє пам'ять під масив рядків, кожен з яких виділяє пам'ять під себе
+	Matrix(size_t rows_count, size_t columns_count); 
 	Matrix(const Matrix&);
+
 	Matrix& operator=(const Matrix&);
 
 	Row& operator[](size_t index);
@@ -73,10 +75,10 @@ public:
 	size_t get_rows_count() const;
 	size_t get_columns_count() const;
 
-	void SetRandom(int scatter = 10);
-	void setToZero();
-	void MakeIndentityMatrix();
-	
+	void SetRandom(int scatter = 10); // Заповнити псевдорандомними числами
+	void setToZero(); // Обнулити матрицю
+	void MakeIndentityMatrix(); // Зробити матрицю одиничною
+
 
 private:
 	Row* _matrix;

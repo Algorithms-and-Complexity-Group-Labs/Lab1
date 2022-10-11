@@ -1,7 +1,7 @@
 ﻿#include "Matrix.h"
 
 #include <cassert>
-#include <algorithm>
+#include <algorithm> // для std::copy
 
 
 Matrix::Matrix() : _columns_count(0), _rows_count(0), _matrix(nullptr) {}
@@ -268,7 +268,7 @@ Row Row::operator*(double multiplier) const
 
 Row Row::operator/(double divider) const
 {
-	assert(divider > kPrecision);
+	assert(fabs(divider) > eps); // Можна кинути exception
 
 	Row temp(_numbers_count);
 	for (int i = 0; i < _numbers_count; i++)
@@ -307,7 +307,7 @@ Row& Row::operator*=(double multiplier)
 
 Row& Row::operator/=(double divider)
 {
-	assert(divider > kPrecision);
+	assert(fabs(divider) > eps);
 
 	for (int i = 0; i < _numbers_count; i++)
 		_numbers[i] /= divider;
