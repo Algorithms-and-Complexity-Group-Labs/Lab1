@@ -1,9 +1,25 @@
 ﻿#include <iostream>
+#include <stdexcept>
 
 #include "Matrix.h"
 
 int main()
 {
+	Matrix matr(3, 3);
+	std::cin >> matr;
+
+	try
+	{
+		matr = Matrix::Gauss_JordanElimination(matr);
+	}
+	catch (const std::overflow_error& e)
+	{
+		std::cout << "Overflow exception: " << e.what() << std::endl;
+	}
+
+	std::cout << matr << std::endl;
+
+
     Row row1(2), row2(2), row3;
     row1[0] = 12; row1[1] = 10;
     row2[0] = 22; row2[1] = 20;

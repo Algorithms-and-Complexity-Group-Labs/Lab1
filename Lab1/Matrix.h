@@ -79,6 +79,7 @@ public:
 	void setToZero(); // Обнулити матрицю
 	void MakeIndentityMatrix(); // Зробити матрицю одиничною
 
+	static Matrix Gauss_JordanElimination(Matrix);
 
 private:
 	Row* _matrix;
