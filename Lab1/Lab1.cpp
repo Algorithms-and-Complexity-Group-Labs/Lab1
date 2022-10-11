@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 
 #include "Matrix.h"
 
@@ -23,5 +23,36 @@ int main()
    //    Matrix d(m);
 
     std::cout << k << g;
+
+	srand(time(NULL));
+	setlocale(LC_ALL, "Ukr");
+	int n = 10;
+	Matrix A(2, 2);
+	Matrix B(2, 2);
+	//for (int i = 0; i < n; ++i)
+	//	A[i] = new int[n];
+	//int** B = new int* [n];
+	//for (int i = 0; i < n; ++i)
+	//	B[i] = new int[n];
+	//int** RES = new int* [n];
+	//for (int i = 0; i < n; ++i)
+	//	RES[i] = new int[n];
+
+	//SetRandom(A, 2);
+	//SetRandom(B, 2);
+	A.SetRandom();
+	B.SetRandom();
+	std::cout << "\nМатриця А: " << std::endl;
+	//Print_Matrix(A, 2);
+	std::cout << A;
+	std:: cout << std::endl;
+	std::cout << "Матриця B: " << std::endl;
+	//Print_Matrix(B, 2);
+	std::cout << B;
+	std::cout << std::endl;
+	std::cout << "Результат множення матриць AxB методом Штрассена: " << std::endl;
+	Matrix RES = A*B;
+	//Print_Matrix(RES, n);
+	std::cout << RES;
 }
 

@@ -4,6 +4,8 @@
 #include <algorithm>
 
 
+Matrix::Matrix() : _columns_count(0), _rows_count(0), _matrix(nullptr) {}
+
 Matrix::Matrix(size_t rows_count, size_t columns_count)
 	: _rows_count(rows_count), _columns_count(columns_count)
 {
@@ -104,6 +106,24 @@ size_t Matrix::get_rows_count() const
 size_t Matrix::get_columns_count() const
 {
 	return this->_columns_count;
+}
+
+void Matrix::SetRandom(int scatter)
+{
+	for (int i = 0; i < _rows_count; i++) {
+		for (int j = 0; j < _columns_count; j++) {
+			_matrix[i][j] = 1 + rand() % scatter;
+		}
+	}
+}
+
+void Matrix::setToZero()
+{
+	for (int i = 0; i < _rows_count; i++) {
+		for (int j = 0; j < _columns_count; j++) {
+			_matrix[i][j] = 0;
+		}
+	}
 }
 
 std::ostream& operator<<(std::ostream& os, const Matrix& matr)

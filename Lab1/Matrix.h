@@ -53,6 +53,7 @@ private:
 class Matrix
 {
 public:
+	Matrix();
 	Matrix(size_t rows_count, size_t columns_count);
 	Matrix(const Matrix&);
 	Matrix& operator=(const Matrix&);
@@ -71,6 +72,9 @@ public:
 
 	size_t get_rows_count() const;
 	size_t get_columns_count() const;
+
+	void SetRandom(int scatter = 10);
+	void setToZero();
 
 private:
 	Row* _matrix;
