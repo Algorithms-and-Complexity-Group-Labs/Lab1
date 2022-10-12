@@ -1,7 +1,9 @@
 ﻿#include "Matrix.h"
 
 #include <cassert>
+#include <random>
 #include <algorithm> // для std::copy
+
 
 
 Matrix::Matrix() : _columns_count(0), _rows_count(0), _matrix(nullptr) {}
@@ -108,13 +110,23 @@ size_t Matrix::get_columns_count() const
 	return this->_columns_count;
 }
 
-void Matrix::SetRandom(int scatter)
+void Matrix::SetRandom()
 {
+	std::random_device rd;
+	std::mt19937 eng(rd());
+	std::uniform_real_distribution<double> distr(kRandomMin, kRandomMax);
+
 	for (int i = 0; i < _rows_count; i++) {
 		for (int j = 0; j < _columns_count; j++) {
-			_matrix[i][j] = 1 + rand() % scatter;
+			_matrix[i][j] = distr(eng);
 		}
 	}
+
+	//for (int i = 0; i < _rows_count; i++) {
+	//	for (int j = 0; j < _columns_count; j++) {
+	//		_matrix[i][j] = 1 + rand() % scatter;
+	//	}
+	//}
 }
 
 void Matrix::setToZero()

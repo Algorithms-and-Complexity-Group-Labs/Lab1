@@ -4,6 +4,10 @@
 
 
 constexpr double eps = 0.00001;
+constexpr double kRandomMin = -10;
+constexpr double kRandomMax = 10;
+
+
 
 
 // Клас рядка матриці. 
@@ -75,7 +79,7 @@ public:
 	size_t get_rows_count() const;
 	size_t get_columns_count() const;
 
-	void SetRandom(int scatter = 10); // Заповнити псевдорандомними числами
+	void SetRandom(); // Заповнити псевдорандомними числами
 	void setToZero(); // Обнулити матрицю
 	void MakeIndentityMatrix(); // Зробити матрицю одиничною
 
