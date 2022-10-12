@@ -1,23 +1,46 @@
 ﻿#include <iostream>
 #include <stdexcept>
 
+#if __has_include(<benchmark/benchmark.h>)
+#pragma comment ( lib, "Shlwapi.lib" )
+#include <benchmark/benchmark.h>     // https://github.com/google/benchmark 
+#endif
+
+#if __has_include(<gtest/gtest.h>)
+#include <gtest/gtest.h>        // https://google.github.io/googletest
+#endif
+
 #include "Matrix.h"
 
-int main()
+
+int main(int argc, char** argv)
 {
+	// Старт юніт тестів
+#ifdef GOOGLETEST_INCLUDE_GTEST_GTEST_H_
+	::testing::InitGoogleTest(&argc, argv);
+	RUN_ALL_TESTS();
+#endif // GOOGLETEST_INCLUDE_GTEST_GTEST_H_
+	std::cout << "\n";
+
+	// Старт бенчмарків
+#ifdef BENCHMARK_BENCHMARK_H_
+	::benchmark::RunSpecifiedBenchmarks();
+#endif // BENCHMARK_BENCHMARK_H_
+
+
 	Matrix matr(3, 3);
 	std::cin >> matr;
 
 	try
 	{
 		matr = Matrix::Gauss_JordanElimination(matr);
+		std::cout << matr << std::endl;
+
 	}
 	catch (const std::overflow_error& e)
 	{
 		std::cout << "Overflow exception: " << e.what() << std::endl;
 	}
-
-	std::cout << matr << std::endl;
 
 
     Row row1(2), row2(2), row3;
@@ -56,8 +79,8 @@ int main()
 
 	//SetRandom(A, 2);
 	//SetRandom(B, 2);
-	A.SetRandom();
-	B.SetRandom();
+	A.SetRandom(0, 3);
+	B.SetRandom(0, 3);
 	std::cout << "\nМатриця А: " << std::endl;
 	//Print_Matrix(A, 2);
 	std::cout << A;
