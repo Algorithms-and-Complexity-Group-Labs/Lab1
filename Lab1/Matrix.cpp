@@ -43,6 +43,22 @@ const Row& Matrix::operator[](size_t index) const
 	return _matrix[index];
 }
 
+bool Matrix::operator==(const Matrix& matr) const
+{
+	assert(this->_rows_count == matr._rows_count &&
+		this->_columns_count == matr._columns_count);
+
+	for (size_t i = 0; i < _rows_count; i++)
+		for (size_t j = 0; j < _columns_count; j++)
+		{
+			// Дабли не можна порівнювати звичайним способом
+			if (std::abs(_matrix[i][j] - matr[i][j]) > eps)
+				return false;
+		}
+
+	return true;
+}
+
 Matrix& Matrix::operator=(const Matrix& cpy_from)
 {
 	this->~Matrix();
@@ -110,11 +126,11 @@ size_t Matrix::get_columns_count() const
 	return this->_columns_count;
 }
 
-void Matrix::SetRandom()
+void Matrix::SetRandom(double min, double max)
 {
 	std::random_device rd;
 	std::mt19937 eng(rd());
-	std::uniform_real_distribution<double> distr(kRandomMin, kRandomMax);
+	std::uniform_real_distribution<double> distr(min, max);
 
 	for (int i = 0; i < _rows_count; i++) {
 		for (int j = 0; j < _columns_count; j++) {

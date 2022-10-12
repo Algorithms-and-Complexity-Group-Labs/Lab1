@@ -4,8 +4,6 @@
 
 
 constexpr double eps = 0.00001;
-constexpr double kRandomMin = -10;
-constexpr double kRandomMax = 10;
 
 
 
@@ -67,6 +65,8 @@ public:
 	Row& operator[](size_t index);
 	const Row& operator[](size_t index) const;
 
+	bool operator==(const Matrix&) const;
+
 	// Звичайне множення O(N^3)
 	Matrix operator*(const Matrix&) const;
 	Matrix& operator*=(const Matrix&);
@@ -79,7 +79,7 @@ public:
 	size_t get_rows_count() const;
 	size_t get_columns_count() const;
 
-	void SetRandom(); // Заповнити псевдорандомними числами
+	void SetRandom(double, double); // Заповнити псевдорандомними числами
 	void setToZero(); // Обнулити матрицю
 	void MakeIndentityMatrix(); // Зробити матрицю одиничною
 
