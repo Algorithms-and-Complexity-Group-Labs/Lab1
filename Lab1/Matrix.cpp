@@ -343,6 +343,16 @@ Row& Row::operator/=(double divider)
 	return *this;
 }
 
+bool Row::operator==(const Row& to_compare) const
+{
+	if (to_compare._numbers_count != _numbers_count)
+		return false;
+	for (size_t i = 0; i < _numbers_count; ++i)
+		if (std::abs(to_compare[i] - _numbers[i]) > eps)
+			return false;
+	return true;
+}
+
 Row::~Row()
 {
 	delete[] _numbers;

@@ -37,6 +37,8 @@ public:
 	Row& operator*=(double);
 	Row& operator/=(double);
 
+	bool operator==(const Row&) const;
+
 	// оператори індексації
 	double& operator[](size_t);
 	const double& operator[](size_t) const;
