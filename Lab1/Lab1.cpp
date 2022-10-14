@@ -27,8 +27,11 @@ int main(int argc, char** argv)
 	::benchmark::RunSpecifiedBenchmarks();
 #endif // BENCHMARK_BENCHMARK_H_
 
+	std::cout << "Type size:" << std::endl;
+	int x, y;
+	std::cin >> x >> y;
 
-	Matrix matr(3, 3);
+	Matrix matr(x, y);
 	std::cin >> matr;
 
 	try
@@ -49,11 +52,11 @@ int main(int argc, char** argv)
 
     row3 = row1 + row2;
 
-    std::cout << row3[0] << ' ' << row3[1] << '\n';
+    // std::cout << row3[0] << ' ' << row3[1] << '\n';
 
     Matrix m(2, 2); m[0][0] = 5; m[1][1] = 442;
 
-    std::cout << m;
+    // std::cout << m;
 
     Matrix k(m);
     Matrix g = m;
