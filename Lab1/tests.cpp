@@ -11,8 +11,9 @@
 
 #include "Matrix.h"
 
-constexpr int kTestSize = 100;  // розмір тестових матриць/рядків
-constexpr int kTestsCount = 100; // кількість викликів кожного тесту
+constexpr int kTestSize = 10;  // розмір тестових матриць/рядків
+constexpr int kTestsCount = 100000; // кількість викликів кожного тесту
+constexpr double kMinMaxElementsRange = 2; // елемегти матриці від -5 до 5
 
 
 #ifdef GOOGLETEST_INCLUDE_GTEST_GTEST_H_
@@ -52,10 +53,6 @@ TEST(Row, CopyOperator)
         {
             EXPECT_DOUBLE_EQ(r[i], r1[i]);
         }
-
-        // r.~Row();
-
-        EXPECT_DOUBLE_EQ(r1[6], 6);
     }
 }
 
@@ -312,8 +309,6 @@ TEST(Matrix, CopyOperator)
         for (size_t i = 0; i < kTestSize; ++i)
             for (size_t j = 0; j < kTestSize; ++j)
                 EXPECT_DOUBLE_EQ(m2[i][j], i * j);
-
-        EXPECT_DOUBLE_EQ(m2[10][11], 110);
     }
 }
 
@@ -421,41 +416,31 @@ TEST(Matrix, MakeIndentityMatrix)
 
 TEST(MatrixInversion, Gauss_JordanMethod)
 {
-    // Розміри матриць
-    for (long long i = 2; i < 2 << 9; i*=2) // 524 макс
+    Matrix identity_matrix(kTestSize, kTestSize); identity_matrix.MakeIndentityMatrix();
+    Matrix matrix(kTestSize, kTestSize), inversed(kTestSize, kTestSize);
+
+    ASSERT_EQ(identity_matrix * matrix, matrix);
+
+    // Кількість тестів матриць кожного розміру 
+    for (size_t j = 0; j < kTestsCount; ++j)
     {
-        Matrix identity_matrix(i, i); identity_matrix.MakeIndentityMatrix();
-        Matrix matrix(i, i), inversed(i, i);
-
-        ASSERT_EQ(identity_matrix * matrix, matrix);
-
-        // Кількість тестів матриць кожного розміру 
-        for (size_t j = i; j < 2 << 7; ++j) // 128 макс
-        {
-            matrix.SetRandom(i * -1, i);
-            try
-            {
-                inversed = Matrix::Gauss_JordanElimination(matrix);
-            }
-            catch (const std::overflow_error& e) {
-                std::cout << "Overflow exception: " << e.what() << std::endl;
-            }
-
-            // std::cout << inversed << "\n";
-            EXPECT_EQ(inversed * matrix, identity_matrix);
-        }
-
-        // Перевірка на матрицю із детермінантом 0
-        matrix.setToZero();
+        matrix.SetRandom(kMinMaxElementsRange * -1, kMinMaxElementsRange);
         try
         {
-            Matrix::Gauss_JordanElimination(matrix);
+            inversed = Matrix::Gauss_JordanElimination(matrix);
+            EXPECT_EQ(inversed * matrix, identity_matrix);
         }
-        catch (const std::overflow_error& e)
-        {
+        catch (const std::overflow_error& e) {
+            std::cout << e.what() << std::endl;
             EXPECT_STREQ("Determinant = 0", e.what());
-            std::cout << "Overflow exception: " << e.what() << std::endl;
         }
+        catch (...)
+        {
+            std::cout << "Неочікувана помилка\n";
+            EXPECT_EQ(0, 1);
+        }
+
+        // std::cout << inversed << "\n";
     }
 }
 
@@ -472,15 +457,16 @@ static void Gauss_JordanElimination_BM(benchmark::State& state)
     for (auto _ : state)
     {
         state.PauseTiming();
-        matrix.SetRandom(state.range(0) * -1, state.range(0));
+        matrix.SetRandom(kMinMaxElementsRange * -1, kMinMaxElementsRange);
         state.ResumeTiming();
 
         try
         {
             benchmark::DoNotOptimize(Matrix::Gauss_JordanElimination(matrix));
-            // benchmark::ClobberMemory();
         }
-        catch (const std::overflow_error& e) {}
+        catch (const std::overflow_error& e) {
+            std::cout << e.what() << "\n";
+        }
     }
     state.SetComplexityN(state.range(0));
 }
