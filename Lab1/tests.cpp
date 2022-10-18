@@ -13,7 +13,7 @@
 
 constexpr int kTestSize = 10;  // розмір тестових матриць/рядків
 constexpr int kTestsCount = 100000; // кількість викликів кожного тесту
-constexpr double kMinMaxElementsRange = 2; // елемегти матриці від -5 до 5
+constexpr double kMinMaxElementsRange = 0.1; // елемегти матриці від -5 до 5
 
 
 #ifdef GOOGLETEST_INCLUDE_GTEST_GTEST_H_
