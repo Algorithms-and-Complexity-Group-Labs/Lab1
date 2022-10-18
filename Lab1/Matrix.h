@@ -3,7 +3,7 @@
 #include <iostream>
 
 
-constexpr double eps = 0.00001;
+constexpr double eps = 0.0000001;
 
 
 
