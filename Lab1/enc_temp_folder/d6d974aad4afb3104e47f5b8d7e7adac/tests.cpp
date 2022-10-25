@@ -421,6 +421,7 @@ TEST(MatrixInversion, Gauss_JordanMethod)
 
     ASSERT_EQ(identity_matrix * matrix, matrix);
 
+    // Кількість тестів матриць кожного розміру 
     for (size_t j = 0; j < kTestsCount; ++j)
     {
         matrix.SetRandom(kMinMaxElementsRange * -1, kMinMaxElementsRange);
