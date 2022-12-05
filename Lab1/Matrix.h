@@ -86,6 +86,7 @@ public:
 	void MakeIndentityMatrix(); // Зробити матрицю одиничною
 
 	static Matrix Gauss_JordanElimination(Matrix);
+	static Matrix InverseMatrixLU(Matrix original);
 
 private:
 	Row* _matrix;

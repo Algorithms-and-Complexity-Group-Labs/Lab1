@@ -397,7 +397,7 @@ TEST(Matrix, MakeIndentityMatrix)
     {
         std::random_device rd;
         std::mt19937 eng(rd());
-        std::uniform_real_distribution<double> distr(-1000, 1000);
+        std::uniform_real_distribution<double> distr(-0.001, 0.001);
 
         Matrix m1(kTestSize, kTestSize);
         for (size_t i = 0; i < kTestSize; ++i)
@@ -443,6 +443,21 @@ TEST(MatrixInversion, Gauss_JordanMethod)
     }
 }
 
+TEST(InverseMatrix, TestName)
+{
+    Matrix identity_matrix(kTestSize, kTestSize);
+    identity_matrix.MakeIndentityMatrix();
+
+    Matrix matrix(kTestSize, kTestSize);
+    Matrix inversed(kTestSize, kTestSize);
+    inversed = Matrix::InverseMatrixLU(matrix);
+    matrix.SetRandom(kMinMaxElementsRange * -1, kMinMaxElementsRange);
+
+    EXPECT_EQ(inversed * matrix, identity_matrix);
+    //EXPECT_EQ(1, 1);
+    //EXPECT_TRUE(true);
+}
+
 #endif // GOOGLETEST_INCLUDE_GTEST_GTEST_H_
 
 
@@ -469,6 +484,9 @@ static void Gauss_JordanElimination_BM(benchmark::State& state)
     }
     state.SetComplexityN(state.range(0));
 }
+
+
+
 BENCHMARK(Gauss_JordanElimination_BM)->Unit(benchmark::kMillisecond)->
     RangeMultiplier(2)->Range(2, 2 << 9)->Complexity();
 

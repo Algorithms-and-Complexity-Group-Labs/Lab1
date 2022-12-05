@@ -22,10 +22,10 @@ int main(int argc, char** argv)
 #endif // GOOGLETEST_INCLUDE_GTEST_GTEST_H_
 	std::cout << "\n";
 
-	// Старт бенчмарків
-#ifdef BENCHMARK_BENCHMARK_H_
-	::benchmark::RunSpecifiedBenchmarks();
-#endif // BENCHMARK_BENCHMARK_H_
+//	// Старт бенчмарків
+//#ifdef BENCHMARK_BENCHMARK_H_
+//	::benchmark::RunSpecifiedBenchmarks();
+//#endif // BENCHMARK_BENCHMARK_H_
 
 	std::cout << "Type size:" << std::endl;
 	int x, y;

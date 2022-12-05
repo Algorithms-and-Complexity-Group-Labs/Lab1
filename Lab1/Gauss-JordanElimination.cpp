@@ -19,15 +19,15 @@ Matrix Matrix::Gauss_JordanElimination(Matrix to_get_inversed)
 	// Проходимося по кожному стовпчику, перетворюємо матрицю в діагональну матрицю
 	for (size_t i = 0; i < matrix_size; i++)
 	{
+
+	    // По кожному рядку
+		for (size_t j = 0; j < matrix_size; j++)	
+		{
 		if (fabs(to_get_inversed[i][i]) < eps)
 		{
 			// std::cout << "Determinant = 0\n";
 			throw std::overflow_error("Determinant = 0");
 		}
-
-	    // По кожному рядку
-		for (size_t j = 0; j < matrix_size; j++)	
-		{
 			if (j != i)
 			{
 				multiplier = to_get_inversed[j][i] / to_get_inversed[i][i];

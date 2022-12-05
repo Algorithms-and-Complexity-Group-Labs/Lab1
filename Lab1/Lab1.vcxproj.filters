@@ -27,12 +27,12 @@
     <ClCompile Include="Gauss-JordanElimination.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InverseMatrixLU.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="doctest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
